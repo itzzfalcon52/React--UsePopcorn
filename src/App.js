@@ -37,7 +37,7 @@ export default function App() {
           setError("");
           setIsLoading(true); //we set as true to show
           const movie = await fetch(
-            `http://www.omdbapi.com/?apikey=${key}&s=${query}`,
+            `https://www.omdbapi.com/?apikey=${key}&s=${query}`,
             { signal: controller.signal }
           );
           if (!movie.ok)
@@ -311,7 +311,7 @@ function MovieDetails({ selectedID, onCloseMovie, onAddWatch, watched }) {
         try {
           setIsLoading(true);
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${key}&i=${selectedID}`
+            `https://www.omdbapi.com/?apikey=${key}&i=${selectedID}`
           );
           const data = await res.json();
           console.log(data);
