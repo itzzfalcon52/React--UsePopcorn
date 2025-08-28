@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import StarRating from "./StarRating";
 import { useMovies } from "./useMovies";
 import { useLocalStorageState } from "./useLocalStorageState";
@@ -11,6 +11,9 @@ const key = "dcc92627";
 export default function App() {
   const [query, setQuery] = useState("");
   const [selectedID, setSelectedID] = useState(null); //we need this to selected the movie when user clicks on a movie
+  const handleCloseMovie = useCallback(() => {
+    setSelectedID(null);
+  }, []);
   const { movies, isloading, error } = useMovies(query, handleCloseMovie);
   //const [watched, setWatched] = useState([]); //insted of this,we use a callback function to return the elements stored in local storage
   /*const [watched, setWatched] = useState(() => {
@@ -21,9 +24,6 @@ export default function App() {
 
   function handleSelectedMovie(id) {
     setSelectedID((selectedID) => (id === selectedID ? null : id)); //we do this here bcz we want when a user clicks on the movie again the movie details should close
-  }
-  function handleCloseMovie() {
-    setSelectedID(null);
   }
 
   function handleAddWatch(movie) {
