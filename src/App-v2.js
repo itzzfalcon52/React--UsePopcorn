@@ -1,40 +1,77 @@
 import "./App.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import StarRating from "./StarRating";
-import { useMovies } from "./useMovies";
-import { useLocalStorageState } from "./useLocalStorageState";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 const key = "dcc92627";
 
 export default function App() {
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+  const [isloading, setIsLoading] = useState(false); //to show a loader whane movies are loading
+  const [error, setError] = useState("");
   const [query, setQuery] = useState("");
   const [selectedID, setSelectedID] = useState(null); //we need this to selected the movie when user clicks on a movie
-  const { movies, isloading, error } = useMovies(query, handleCloseMovie);
-  //const [watched, setWatched] = useState([]); //insted of this,we use a callback function to return the elements stored in local storage
-  /*const [watched, setWatched] = useState(() => {
-    const storedMovie = localStorage.getItem("watched");
-    return JSON.parse(storedMovie);
-  }); we make a custom hook out of this...*/
-  const [watched, setWatched] = useLocalStorageState([], "watched");
-
+  //const tempQuery = "interstellar";
   function handleSelectedMovie(id) {
     setSelectedID((selectedID) => (id === selectedID ? null : id)); //we do this here bcz we want when a user clicks on the movie again the movie details should close
   }
   function handleCloseMovie() {
     setSelectedID(null);
   }
-
   function handleAddWatch(movie) {
     setWatched((movies) => {
       return [...movies, movie];
     });
-    //localStorage.setItem("watched", JSON.stringify([...watched, movie])); we can add them to local storage here as well or in a useeffect
   }
   function handleDeleteWatched(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
+
+  useEffect(
+    function () {
+      const controller = new AbortController();
+      async function fetchMovies() {
+        try {
+          setError("");
+          setIsLoading(true); //we set as true to show
+          const movie = await fetch(
+            `https://www.omdbapi.com/?apikey=${key}&s=${query}`,
+            { signal: controller.signal }
+          );
+          if (!movie.ok)
+            throw new Error(
+              "uh-oh something went wrong please try again later..😔"
+            );
+          const movieData = await movie.json();
+          if (movieData.Response === "False") {
+            throw new Error(" no movie found with that name😔");
+          }
+          setMovies(movieData.Search || []); // handle undefined safely
+          setError("");
+        } catch (err) {
+          if (err.name !== "AbortError") {
+            console.error(err.message);
+            setError(err.message);
+          }
+        } finally {
+          setIsLoading(false); //after every data is loaded we set it back to false
+        }
+      }
+      if (query.length < 3) {
+        setMovies([]);
+        setError("");
+        return;
+      }
+      handleCloseMovie();
+      fetchMovies();
+      return function () {
+        controller.abort();
+      };
+    },
+    [query]
+  );
 
   return (
     <>
@@ -131,20 +168,6 @@ function Logo() {
   );
 }
 function Search({ query, setQuery }) {
-  const inputEl = useRef(null);
-
-  useEffect(
-    function () {
-      function callBack(e) {
-        if (document.activeElement === inputEl.current) return; //we use this as after searching,we press enter then it will remove the movies list and go back to initial stae
-        if (e.code === "Enter") inputEl.current.focus();
-        setQuery("");
-      }
-      document.addEventListener("keydown", callBack);
-      return () => document.removeEventListener("keydown", callBack);
-    },
-    [setQuery]
-  );
   return (
     <input
       className="search"
@@ -152,7 +175,6 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
-      ref={inputEl}
     />
   );
 }
