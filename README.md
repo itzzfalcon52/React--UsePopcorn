@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+🎬 UsePopcorn
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+UsePopcorn is a movie-finding web app built with React. It uses the OMDb API to fetch movie data and allows users to search, explore, and track movies they’ve watched.
 
-## Available Scripts
+🔗 Live Demo: watchwithpopcorn.netlify.app
 
-In the project directory, you can run:
+🚀 Features
 
-### `npm start`
+->🔍 Search Movies – Find movies by title using OMDb API.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+->🎥 Movie Details – View details such as plot, cast, IMDb rating, runtime, and release year.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+->⭐ Rate Movies – Add your own rating for movies you’ve watched.
 
-### `npm test`
+->📌 Watched List – Save movies you’ve watched and keep track of them.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+->📝 Watched Summary – See your average rating and statistics about movies in your watched list.
 
-### `npm run build`
+->🍿 Responsive Design – Works seamlessly on desktop and mobile.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+🛠️ Tech Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+->React (Hooks + Component Composition)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+->CSS / Flexbox & Grid for styling
 
-### `npm run eject`
+->OMDb API for movie data
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+->Netlify for deployment
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+📷 Screenshots
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Homepage
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Homepage Screenshot](screenshots/Screenshot%202025-08-28%20at%2012.33.06 PM.png)
 
-## Learn More
+### Watched List
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Watched List Screenshot](screenshots/Screenshot%202025-08-28%20at%2012.33.22 PM.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+⚙️ Installation & Setup
 
-### Code Splitting
+1.Clone the repository:
+git clone https://github.com/yourusername/usepopcorn.git
+cd usepopcorn
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2.Install dependencies:
+npm install
 
-### Analyzing the Bundle Size
+3.Create a .env file in the project root and add your OMDb API key:
+REACT_APP_OMDB_KEY=your_api_key
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+4.Start the development server:
+npm start
 
-### Making a Progressive Web App
+🌍 Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The project is deployed on Netlify:
+👉 watchwithpopcorn.netlify.app
 
-### Advanced Configuration
+📌 Future Improvements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+🎞 Add pagination for search results.
 
-### Deployment
+❤️ Add a "favorites" list alongside watched movies.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+🔔 Add notifications or reminders for unwatched movies.
 
-### `npm run build` fails to minify
+👨‍💻 Author
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Built with ❤️ by Hussain
